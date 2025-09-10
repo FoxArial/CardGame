@@ -2,10 +2,10 @@ import { Link } from "expo-router";
 import React from "react";
 import { Text, View } from "react-native";
 
-export default function mainScreen() {
+export default function MainScreen() {
   return (
     <View>
-      <Link href="/levelSelection">Select level</Link>
+      <Link href="/">Select level</Link>
       <Text>mainScreen</Text>
     </View>
   );
