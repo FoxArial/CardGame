@@ -5,7 +5,7 @@ import { Text, View } from "react-native";
 export default function MainScreen() {
   return (
     <View>
-      <Link href="/">Select level</Link>
+      <Link href="/levelSelectionScreen">Select level</Link>
       <Text>mainScreen</Text>
     </View>
   );
