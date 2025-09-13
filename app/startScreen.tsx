@@ -10,64 +10,64 @@ import {
   stylesConst,
 } from "../constants/constant";
 
+import Background from "@/components/background";
 import SolarEffect from "../components/startScreen/solarEffect";
 
 export default function StartScreen() {
   return (
-    //<Background>
-    <View style={styles.bg}>
-      <View style={styles.title}>
-        <LinearGradient
-          colors={[
-            hexToRgba(colors.background, 1),
-            hexToRgba(colors.violetDark, 1),
-            hexToRgba(colors.background, 1),
-          ]}
-          start={{ x: 0, y: 1 }}
-          end={{ x: 1, y: 1 }}
-          style={styles.gradientStyle}
-        />
-        <View style={styles.solarContainer}>
-          <SolarEffect />
+    <Background>
+      <View style={styles.bg}>
+        <View style={styles.title}>
+          <LinearGradient
+            colors={[
+              hexToRgba(colors.violetDark, 0),
+              hexToRgba(colors.violetDark, 1),
+              hexToRgba(colors.violetDark, 0),
+            ]}
+            start={{ x: 0, y: 1 }}
+            end={{ x: 1, y: 1 }}
+            style={styles.gradientStyle}
+          />
+          <View style={styles.solarContainer}>
+            <SolarEffect />
+          </View>
+          <View style={{ height: "100%", width: "100%", position: "relative" }}>
+            <Text
+              style={[
+                stylesConst.textStyles,
+                styles.text,
+                { top: "10%", left: "37%" },
+              ]}
+            >
+              Magic
+            </Text>
+            <Text
+              style={[
+                stylesConst.textStyles,
+                styles.text,
+                { top: "45%", left: "32%" },
+              ]}
+            >
+              Memory
+            </Text>
+          </View>
         </View>
-        <View style={{ height: "100%", width: "100%", position: "relative" }}>
-          <Text
-            style={[
-              stylesConst.textStyles,
-              styles.text,
-              { top: "10%", left: "37%" },
-            ]}
-          >
-            Magic
-          </Text>
-          <Text
-            style={[
-              stylesConst.textStyles,
-              styles.text,
-              { top: "45%", left: "32%" },
-            ]}
-          >
-            Memory
-          </Text>
+        <View
+          style={{
+            height: "60%",
+            justifyContent: "center",
+          }}
+        >
+          <Button nav="../mainScreen" playButtonSize={100} />
         </View>
       </View>
-      <View
-        style={{
-          height: "60%",
-          justifyContent: "center",
-        }}
-      >
-        <Button nav="../mainScreen" playButtonSize={100} />
-      </View>
-    </View>
-    // </Background>
+    </Background>
   );
 }
 const styles = StyleSheet.create({
   bg: {
     height: height,
     width: "100%",
-    backgroundColor: colors.background,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
   },
   gradientStyle: {
     height: "65%",
-    width: "100%",
+    width: "85%",
     position: "absolute",
     top: "15%",
   },
