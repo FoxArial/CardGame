@@ -30,12 +30,12 @@ export default function StartScreen() {
         <View style={styles.solarContainer}>
           <SolarEffect />
         </View>
-        <View style={{ height: "100%", width: "50%", position: "relative" }}>
+        <View style={{ height: "100%", width: "100%", position: "relative" }}>
           <Text
             style={[
               stylesConst.textStyles,
-              styles.titleText,
-              { top: "10%", left: "20%" },
+              styles.text,
+              { top: "10%", left: "37%" },
             ]}
           >
             Magic
@@ -43,8 +43,8 @@ export default function StartScreen() {
           <Text
             style={[
               stylesConst.textStyles,
-              styles.titleText,
-              { top: "45%", left: "10%" },
+              styles.text,
+              { top: "45%", left: "32%" },
             ]}
           >
             Memory
@@ -53,7 +53,7 @@ export default function StartScreen() {
       </View>
       <View
         style={{
-          height: "70%",
+          height: "60%",
           justifyContent: "center",
         }}
       >
@@ -71,12 +71,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  titleText: {
+  text: {
     fontSize: fontsSize.title,
     position: "absolute",
   },
   title: {
-    height: "40%",
+    height: "30%",
     width: "60%",
     position: "relative",
     alignItems: "center",

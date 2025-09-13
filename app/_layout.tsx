@@ -7,7 +7,6 @@ import {
 import LoadingScreen from "./loadingScreen";
 
 export default function RootLayout() {
-  const insents = useSafeAreaInsets();
   const [fontsLoaded] = useFonts({
     "Fredoka-Medium": require("../assets/fonts/Fredoka-Medium.ttf"),
     "Fredoka-SemiBold": require("../assets/fonts/Fredoka-SemiBold.ttf"),
@@ -17,16 +16,23 @@ export default function RootLayout() {
   }
   return (
     <SafeAreaProvider>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: {
-            paddingTop: insents.top,
-            paddingBottom: insents.bottom,
-          },
-          animation: "fade",
-        }}
-      />
+      <StackWrapper />
     </SafeAreaProvider>
+  );
+}
+
+function StackWrapper() {
+  const insents = useSafeAreaInsets();
+  return (
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: {
+          paddingTop: insents.top,
+          paddingBottom: insents.bottom,
+        },
+        animation: "fade",
+      }}
+    />
   );
 }
