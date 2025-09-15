@@ -38,6 +38,12 @@ export const stylesConst = StyleSheet.create({
     color: colors.text,
     textAlign: "center",
   },
+  bg: {
+    height: height,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });
 
 export const hexToRgba = (hex: string, opacity: number) => {

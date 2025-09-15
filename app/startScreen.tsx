@@ -5,7 +5,6 @@ import { StyleSheet, Text, View } from "react-native";
 import {
   colors,
   fontsSize,
-  height,
   hexToRgba,
   stylesConst,
 } from "../constants/constant";
@@ -16,7 +15,7 @@ import SolarEffect from "../components/startScreen/solarEffect";
 export default function StartScreen() {
   return (
     <Background>
-      <View style={styles.bg}>
+      <View style={stylesConst.bg}>
         <View style={styles.title}>
           <LinearGradient
             colors={[
@@ -58,19 +57,13 @@ export default function StartScreen() {
             justifyContent: "center",
           }}
         >
-          <Button nav="../mainScreen" playButtonSize={100} />
+          <Button nav="../levelSelectionScreen" playButtonSize={100} />
         </View>
       </View>
     </Background>
   );
 }
 const styles = StyleSheet.create({
-  bg: {
-    height: height,
-    width: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   text: {
     fontSize: fontsSize.title,
     position: "absolute",
