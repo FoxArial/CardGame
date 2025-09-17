@@ -1,11 +1,18 @@
+import CardBoard from "@/components/gameBoardScreen/cardBoard";
 import LoadingScreen from "@/components/loadingScreen";
-import React from "react";
+import React, { useState } from "react";
 import { View } from "react-native";
 
 export default function GameBoardScreen() {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const loading = isLoaded;
   return (
     <View>
-      <LoadingScreen />
+      {loading ? (
+        <CardBoard />
+      ) : (
+        <LoadingScreen isLoaded={() => setIsLoaded(true)} />
+      )}
     </View>
   );
 }

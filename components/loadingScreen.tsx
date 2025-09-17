@@ -5,16 +5,23 @@ import React, { useEffect, useRef, useState } from "react";
 import { Animated, Image, StyleSheet, Text, View } from "react-native";
 import Background from "./background";
 
-const LoadingScreen = () => {
+type LoadingScreenProps = {
+  isLoaded?: () => void;
+};
+const LoadingScreen = ({ isLoaded }: LoadingScreenProps) => {
   const animatedValue = useRef(new Animated.Value(0)).current;
+  const rotationAnimation = new Animated.Value(0);
   const [progress, setProgress] = useState(0);
+
   const AnimatedLinearGradient =
     Animated.createAnimatedComponent(LinearGradient);
+
   useEffect(() => {
     const interval = setInterval(() => {
       setProgress((prev) => {
         if (prev >= 100) {
           clearInterval(interval);
+          if (isLoaded) isLoaded();
           return 100;
         }
         const step = Math.random() * 40;
@@ -32,24 +39,49 @@ const LoadingScreen = () => {
     }).start();
   }, [progress]);
 
+  useEffect(() => {
+    const spin = () => {
+      Animated.sequence([
+        Animated.timing(rotationAnimation, {
+          toValue: 1,
+          duration: 500,
+          useNativeDriver: false,
+        }),
+        Animated.delay(1000),
+      ]).start(() => {
+        rotationAnimation.setValue(0);
+        spin();
+      });
+    };
+    spin();
+    return () => rotationAnimation.stopAnimation();
+  }, []);
+
+  const rotate = rotationAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: ["0deg", "360deg"],
+  });
   const progressWidth = animatedValue.interpolate({
     inputRange: [0, 100],
     outputRange: ["0%", "100%"],
   });
 
+  const borderConst = 19;
   return (
     <Background>
       <View style={styles.screenContainer}>
         <View style={styles.barContainer}>
           <View style={styles.barBg}>
-            <LoadingContainer />
+            <LoadingContainer borderRadius={borderConst} />
           </View>
-          <View style={styles.imgContainer}>
+          <Animated.View
+            style={[styles.imgContainer, { transform: [{ rotate }] }]}
+          >
             <Image
               style={{ height: "100%", width: "100%" }}
               source={require("../assets/images/Hourglass.png")}
             />
-          </View>
+          </Animated.View>
 
           <Text
             style={[
@@ -60,12 +92,24 @@ const LoadingScreen = () => {
             Loading ...
           </Text>
 
-          <View style={styles.track}>
+          <View
+            style={[
+              styles.track,
+              {
+                borderRadius: borderConst,
+              },
+            ]}
+          >
             <AnimatedLinearGradient
               colors={[colors.violetDark, colors.violetLight]}
               start={{ x: 0, y: 1 }}
               end={{ x: 1, y: 1 }}
-              style={[styles.progress, { width: progressWidth }]}
+              style={[
+                styles.progress,
+                {
+                  width: progressWidth,
+                },
+              ]}
             />
           </View>
         </View>
@@ -90,24 +134,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     position: "relative",
-    backgroundColor: "red",
   },
   barBg: {
     height: "100%",
     width: "100%",
     position: "absolute",
     top: 0,
-    left: -50,
-    backgroundColor: "green",
   },
   imgContainer: {
-    height: 50,
-    width: 50,
+    height: "60%",
+    aspectRatio: 1,
     zIndex: 1,
   },
   track: {
-    width: "60%",
+    width: "100%",
     height: "100%",
+    overflow: "hidden",
     position: "absolute",
   },
   progress: {
