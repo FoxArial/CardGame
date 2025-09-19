@@ -16,7 +16,7 @@ export default function Card({ level, text }: CardProps) {
         style={styles.cardContainer}
         onPress={() => {
           setTimeout(() => {
-            router.push({ pathname: "/gameBoardScreen", params: { level: 3 } });
+            router.push({ pathname: "/gameBoardScreen", params: { level } });
           }, 150);
         }}
       >
