@@ -10,6 +10,7 @@ import {
   View,
 } from "react-native";
 import BgWaveSecondType from "./bgWawe";
+import HintButton from "./hintButton";
 import SingleCard from "./SingleCard";
 
 const cardImages = [
@@ -122,6 +123,9 @@ export default function CardBoard({ isDone }: CardBoardProps) {
           },
         ]}
       >
+        <View style={styles.hintButtonContainer}>
+          <HintButton choiceOne={choiceOne} cardArray={cards} buttonSize={50} />
+        </View>
         <View style={styles.waveContainer}>
           <BgWaveSecondType />
         </View>
@@ -158,5 +162,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     bottom: "10%",
+  },
+  hintButtonContainer: {
+    position: "absolute",
+    right: "5%",
+    top: "5%",
   },
 });

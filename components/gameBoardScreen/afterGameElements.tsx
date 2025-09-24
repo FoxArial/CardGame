@@ -14,14 +14,18 @@ export default function AfterGameElements() {
   useEffect(() => {
     Animated.timing(opacityAnim, {
       toValue: 1,
-      useNativeDriver: false,
+      useNativeDriver: true,
       delay: 100,
       duration: 500,
     }).start();
   }, []);
   return (
-    <View style={[stylesConst.fullScreenCentralElement]}>
-      <Animated.View></Animated.View>
+    <View
+      style={[stylesConst.fullScreenCentralElement, { position: "relative" }]}
+    >
+      <Animated.View
+        style={{ backgroundColor: "red", zIndex: 3, position: "absolute" }}
+      ></Animated.View>
       <Animated.View
         style={[
           styles.mainElementsContainer,
