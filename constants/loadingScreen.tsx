@@ -40,20 +40,17 @@ const LoadingScreen = ({ isLoaded }: LoadingScreenProps) => {
   }, [progress]);
 
   useEffect(() => {
-    const spin = () => {
+    rotationAnimation.setValue(0);
+    Animated.loop(
       Animated.sequence([
         Animated.timing(rotationAnimation, {
           toValue: 1,
-          duration: 500,
+          duration: 1000,
           useNativeDriver: false,
         }),
-        Animated.delay(1000),
-      ]).start(() => {
-        rotationAnimation.setValue(0);
-        spin();
-      });
-    };
-    spin();
+        Animated.delay(1500),
+      ])
+    ).start();
     return () => rotationAnimation.stopAnimation();
   }, []);
 

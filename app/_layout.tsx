@@ -6,7 +6,7 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
-import LoadingScreen from "../components/loadingScreen";
+import LoadingScreen from "../constants/loadingScreen";
 
 export default function RootLayout() {
   const [isLoaded, setIsLoaded] = useState(false);

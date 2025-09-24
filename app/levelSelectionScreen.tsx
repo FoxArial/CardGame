@@ -1,6 +1,6 @@
-import Background from "@/components/background";
 import Card from "@/components/levelSelectionScreen/card";
 import Wave from "@/components/levelSelectionScreen/wave";
+import Background from "@/constants/background";
 import { fontsSize, stylesConst } from "@/constants/constant";
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";

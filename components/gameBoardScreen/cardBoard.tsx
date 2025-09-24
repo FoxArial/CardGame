@@ -1,11 +1,9 @@
 import { LevelContext } from "@/app/gameBoardScreen";
 import { height } from "@/constants/constant";
-import StarSky from "@/constants/StarSky";
 import React, { useContext, useEffect, useState } from "react";
 import {
   Animated,
   FlatList,
-  ImageBackground,
   ImageSourcePropType,
   StyleSheet,
   View,
@@ -26,7 +24,10 @@ export type CardType = {
   src: ImageSourcePropType;
   matched: boolean;
 };
-export default function CardBoard() {
+type CardBoardProps = {
+  isDone: (done: boolean) => void;
+};
+export default function CardBoard({ isDone }: CardBoardProps) {
   const [cards, setCards] = useState<CardType[]>([]);
   const [choiceOne, setChoiceOne] = useState<CardType | null>(null);
   const [choiceTwo, setChoiceTwo] = useState<CardType | null>(null);
@@ -51,6 +52,7 @@ export default function CardBoard() {
   const handleChoice = (card: CardType) => {
     if (disabled) return;
     if (card.matched) return;
+    if (choiceOne?.id === card.id) return;
     choiceOne ? setChoiceTwo(card) : setChoiceOne(card);
   };
   const resetTurn = () => {
@@ -72,7 +74,7 @@ export default function CardBoard() {
   useEffect(() => {
     if (!choiceOne || !choiceTwo) return;
     setDisabled(true);
-    if (choiceOne.src === choiceTwo.src && choiceOne.id !== choiceTwo.id) {
+    if (choiceOne.src === choiceTwo.src) {
       setCards((prev) => updCardValue(prev));
       setCardsOnBoard((prev) => updLeftCardOnBoard(prev));
       resetTurn();
@@ -82,13 +84,13 @@ export default function CardBoard() {
   }, [choiceOne, choiceTwo]);
   useEffect(() => {
     if (cardsOnBoard > 0) return;
-
     Animated.timing(changeBoardAnim, {
       toValue: 100,
       useNativeDriver: false,
       duration: 1500,
-      delay: 1000,
+      delay: 1500,
     }).start();
+    setTimeout(() => isDone(true), 3000);
   }, [cardsOnBoard]);
   const animTranslateY = changeBoardAnim.interpolate({
     inputRange: [0, 100],
@@ -96,33 +98,18 @@ export default function CardBoard() {
   });
   return (
     <Animated.View
-      style={{
-        position: "relative",
-      }}
+      style={[
+        styles.fullScreen,
+        {
+          position: "relative",
+          transform: [{ translateY: animTranslateY }],
+        },
+      ]}
     >
-      <View style={styles.fullScreen}>
-        <ImageBackground
-          source={require("@/assets/images/cardBoardBg.png")}
-          resizeMode="cover"
-          style={styles.fullScreen}
-        >
-          <StarSky />
-          <Animated.View
-            style={[
-              styles.waveContainer,
-              { transform: [{ translateY: animTranslateY }] },
-            ]}
-          >
-            <BgWaveSecondType />
-          </Animated.View>
-        </ImageBackground>
+      <View style={styles.waveContainer}>
+        <BgWaveSecondType />
       </View>
-      <Animated.View
-        style={[
-          styles.cardsContainer,
-          { transform: [{ translateY: animTranslateY }] },
-        ]}
-      >
+      <View style={styles.cardsContainer}>
         <FlatList
           data={cards}
           numColumns={cardNumber}
@@ -138,7 +125,7 @@ export default function CardBoard() {
           )}
           style={{ alignContent: "center" }}
         ></FlatList>
-      </Animated.View>
+      </View>
     </Animated.View>
   );
 }
