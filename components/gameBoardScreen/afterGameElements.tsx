@@ -8,7 +8,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
 import SolarEffect from "../startScreen/solarEffect";
-import AfterGameButton from "./afterGameButton";
+import StartAgainButton from "./afterGameButton";
 export default function AfterGameElements() {
   const opacityAnim = new Animated.Value(0);
   useEffect(() => {
@@ -20,9 +20,16 @@ export default function AfterGameElements() {
     }).start();
   }, []);
   return (
-    <View style={[styles.fullScreen, , styles.mainContainer]}>
+    <View style={[stylesConst.fullScreenCentralElement]}>
       <Animated.View></Animated.View>
-      <Animated.View style={{ opacity: opacityAnim }}>
+      <Animated.View
+        style={[
+          styles.mainElementsContainer,
+          {
+            opacity: opacityAnim,
+          },
+        ]}
+      >
         <View style={styles.title}>
           <LinearGradient
             colors={[
@@ -38,25 +45,19 @@ export default function AfterGameElements() {
             <SolarEffect />
           </View>
           <View style={styles.textContainer}>
-            <Text style={[stylesConst.textStyles, styles.text, {}]}>
+            <Text
+              style={[stylesConst.textStyles, { fontSize: fontsSize.title }]}
+            >
               Congratulations!
             </Text>
           </View>
         </View>
-        <AfterGameButton />
+        <StartAgainButton />
       </Animated.View>
     </View>
   );
 }
 const styles = StyleSheet.create({
-  fullScreen: {
-    height: "100%",
-    width: "100%",
-  },
-  mainContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
   title: {
     height: "40%",
     width: "60%",
@@ -81,7 +82,11 @@ const styles = StyleSheet.create({
     width: "100%",
     justifyContent: "center",
   },
-  text: {
-    fontSize: fontsSize.title,
+  mainElementsContainer: {
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: "15%",
   },
 });

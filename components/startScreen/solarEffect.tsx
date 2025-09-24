@@ -1,3 +1,4 @@
+import { stylesConst } from "@/constants/constant";
 import React from "react";
 import { Image, StyleSheet, View } from "react-native";
 
@@ -5,14 +6,7 @@ export default function SolarEffect() {
   const solarWidth = 20;
   const borderRadiusSolar = 20;
   return (
-    <View
-      style={{
-        width: "100%",
-        justifyContent: "center",
-        alignItems: "center",
-        height: "100%",
-      }}
-    >
+    <View style={stylesConst.fullScreenCentralElement}>
       <Image
         source={require("../../assets/images/mask-group.png")}
         resizeMode="contain"

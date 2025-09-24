@@ -30,7 +30,7 @@ export default function StartScreen() {
           <View style={styles.solarContainer}>
             <SolarEffect />
           </View>
-          <View style={{ height: "100%", width: "100%", position: "relative" }}>
+          <View style={[stylesConst.fullScreen, { position: "absolute" }]}>
             <Text
               style={[
                 stylesConst.textStyles,
@@ -73,18 +73,16 @@ const styles = StyleSheet.create({
     width: "60%",
     position: "relative",
     alignItems: "center",
+    justifyContent: "center",
   },
   gradientStyle: {
-    height: "65%",
+    height: "60%",
     width: "85%",
-    position: "absolute",
-    top: "15%",
   },
   solarContainer: {
     height: "120%",
     width: "100%",
     position: "absolute",
-    top: "-10%",
     alignItems: "center",
   },
 });

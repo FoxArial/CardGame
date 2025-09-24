@@ -1,5 +1,6 @@
 import { LevelContext } from "@/app/gameBoardScreen";
-import { height } from "@/constants/constant";
+import { height, stylesConst } from "@/constants/constant";
+import StarSky from "@/constants/StarSky";
 import React, { useContext, useEffect, useState } from "react";
 import {
   Animated,
@@ -35,6 +36,7 @@ export default function CardBoard({ isDone }: CardBoardProps) {
   const cardNumber = useContext(LevelContext) / 2;
   const [cardsOnBoard, setCardsOnBoard] = useState(cardNumber);
   const changeBoardAnim = new Animated.Value(0);
+  const opacityAnim = new Animated.Value(1);
   useEffect(() => {
     shuffleCards();
   }, [cardNumber]);
@@ -86,54 +88,65 @@ export default function CardBoard({ isDone }: CardBoardProps) {
     if (cardsOnBoard > 0) return;
     Animated.timing(changeBoardAnim, {
       toValue: 100,
-      useNativeDriver: false,
+      useNativeDriver: true,
       duration: 1500,
       delay: 1500,
     }).start();
     setTimeout(() => isDone(true), 3000);
+    Animated.timing(opacityAnim, {
+      toValue: 0,
+      useNativeDriver: true,
+      duration: 1000,
+    }).start();
   }, [cardsOnBoard]);
   const animTranslateY = changeBoardAnim.interpolate({
     inputRange: [0, 100],
     outputRange: [0, height],
   });
   return (
-    <Animated.View
-      style={[
-        styles.fullScreen,
-        {
-          position: "relative",
-          transform: [{ translateY: animTranslateY }],
-        },
-      ]}
-    >
-      <View style={styles.waveContainer}>
-        <BgWaveSecondType />
-      </View>
-      <View style={styles.cardsContainer}>
-        <FlatList
-          data={cards}
-          numColumns={cardNumber}
-          renderItem={({ item }) => (
-            <SingleCard
-              key={item.id}
-              card={item}
-              handleChoice={handleChoice}
-              disabled={disabled}
-              flipped={item === choiceOne || item === choiceTwo}
-              invisibility={item.matched}
-            />
-          )}
-          style={{ alignContent: "center" }}
-        ></FlatList>
-      </View>
-    </Animated.View>
+    <>
+      <Animated.View
+        style={[
+          stylesConst.fullScreen,
+          { position: "absolute", top: 0, opacity: opacityAnim },
+        ]}
+      >
+        <StarSky />
+      </Animated.View>
+      <Animated.View
+        style={[
+          stylesConst.fullScreen,
+          {
+            position: "relative",
+            transform: [{ translateY: animTranslateY }],
+          },
+        ]}
+      >
+        <View style={styles.waveContainer}>
+          <BgWaveSecondType />
+        </View>
+        <View style={styles.cardsContainer}>
+          <FlatList
+            data={cards}
+            numColumns={cardNumber}
+            renderItem={({ item }) => (
+              <SingleCard
+                key={item.id}
+                card={item}
+                handleChoice={handleChoice}
+                disabled={disabled}
+                flipped={item === choiceOne || item === choiceTwo}
+                invisibility={item.matched}
+              />
+            )}
+            style={{ alignContent: "center" }}
+          ></FlatList>
+        </View>
+      </Animated.View>
+    </>
   );
 }
 const styles = StyleSheet.create({
-  fullScreen: {
-    height: "100%",
-    width: "100%",
-  },
   waveContainer: {
     height: "80%",
     width: "100%",

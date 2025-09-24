@@ -24,6 +24,7 @@ export default function Card({ level, text }: CardProps) {
           <View
             style={[
               styles.card,
+              stylesConst.fullScreen,
               {
                 borderColor: pressed
                   ? colors.levelBorderSelected
@@ -58,7 +59,7 @@ export default function Card({ level, text }: CardProps) {
               <Image
                 source={require("../../assets/images/card-off.png")}
                 resizeMode="contain"
-                style={styles.cardImage}
+                style={[styles.cardImage, stylesConst.fullScreen]}
               />
             </View>
           </View>
@@ -94,8 +95,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.secondary,
     flexDirection: "row",
     alignItems: "center",
-    height: "100%",
-    width: "100%",
     position: "relative",
     borderRadius: 45,
     borderWidth: 5,
@@ -112,8 +111,6 @@ const styles = StyleSheet.create({
     width: miniCardSize,
   },
   cardImage: {
-    height: "100%",
-    width: "100%",
     borderWidth: 4,
     borderColor: colors.levelBorderSelected,
     borderRadius: 10,

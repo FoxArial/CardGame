@@ -16,7 +16,7 @@ export default function LevelSelectionScreen() {
           },
         ]}
       >
-        <View style={{ height: "100%", width: "100%", position: "absolute" }}>
+        <View style={[stylesConst.fullScreen, { position: "absolute" }]}>
           <Wave />
         </View>
         <View style={styles.titleText}>

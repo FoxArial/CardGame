@@ -1,4 +1,4 @@
-import { base_width, colors } from "@/constants/constant";
+import { base_width, colors, stylesConst } from "@/constants/constant";
 import { LinearGradient } from "expo-linear-gradient";
 import { RelativePathString, useRouter } from "expo-router";
 import { Image, Pressable, StyleSheet, View } from "react-native";
@@ -16,7 +16,7 @@ export default function Button({ nav, playButtonSize }: ButtonProps) {
   return (
     <View
       style={[
-        styles.buttonContainer,
+        stylesConst.centralPositioning,
         {
           width: containerSize,
           height: containerSize,
@@ -27,6 +27,7 @@ export default function Button({ nav, playButtonSize }: ButtonProps) {
       <Pressable
         style={[
           styles.button,
+          stylesConst.fullScreen,
           {
             width: containerSize,
             height: containerSize,
@@ -38,6 +39,7 @@ export default function Button({ nav, playButtonSize }: ButtonProps) {
         <LinearGradient
           style={[
             styles.buttonGradient,
+            stylesConst.fullScreen,
             {
               borderRadius: containerSize / 2,
             },
@@ -46,7 +48,7 @@ export default function Button({ nav, playButtonSize }: ButtonProps) {
           start={{ x: 1, y: -0.3 }}
           end={{ x: 1, y: 0.5 }}
         >
-          <PlayButton size={playButtonSize * 0.5} />
+          <PlayButton size={playButtonSize * 0.5} stroke="#FAFAFA" />
         </LinearGradient>
       </Pressable>
       <Image
@@ -59,20 +61,12 @@ export default function Button({ nav, playButtonSize }: ButtonProps) {
 }
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-  },
   button: {
-    alignItems: "center",
-    justifyContent: "center",
     borderColor: colors.violetLight,
     borderWidth: 10,
     zIndex: 2,
   },
   buttonGradient: {
-    height: "100%",
-    width: "100%",
     justifyContent: "center",
     alignItems: "center",
   },

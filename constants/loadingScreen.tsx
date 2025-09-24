@@ -67,9 +67,9 @@ const LoadingScreen = ({ isLoaded }: LoadingScreenProps) => {
   const borderConst = 19;
   return (
     <Background>
-      <View style={styles.screenContainer}>
-        <View style={styles.barContainer}>
-          <View style={styles.barBg}>
+      <View style={stylesConst.fullScreenCentralElement}>
+        <View style={[styles.barContainer, stylesConst.centralPositioning]}>
+          <View style={[styles.barBg, stylesConst.fullScreen]}>
             <LoadingContainer borderRadius={borderConst} />
           </View>
           <Animated.View
@@ -93,6 +93,7 @@ const LoadingScreen = ({ isLoaded }: LoadingScreenProps) => {
           <View
             style={[
               styles.track,
+              stylesConst.fullScreen,
               {
                 borderRadius: borderConst,
               },
@@ -119,23 +120,13 @@ const LoadingScreen = ({ isLoaded }: LoadingScreenProps) => {
 export default LoadingScreen;
 
 const styles = StyleSheet.create({
-  screenContainer: {
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   barContainer: {
     width: "60%",
     height: "10%",
-    justifyContent: "center",
-    alignItems: "center",
     flexDirection: "row",
     position: "relative",
   },
   barBg: {
-    height: "100%",
-    width: "100%",
     position: "absolute",
     top: 0,
   },
@@ -145,8 +136,6 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   track: {
-    width: "100%",
-    height: "100%",
     overflow: "hidden",
     position: "absolute",
   },

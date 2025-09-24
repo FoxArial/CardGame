@@ -9,7 +9,7 @@ export const colors = {
   levelBorderSelected: "#EDBB57",
   cardBorder: "#577DED",
   cardBorderHint: "#E88F40",
-  cardBorderSelected: "#C57CFF",
+  Amethyst: "#C57CFF",
   hintBorder: "#FFE57C",
   violetDark: "#7500D1",
   violetLight: "#C780FF",
@@ -17,6 +17,7 @@ export const colors = {
   orangeLight: "#FFB380",
   blueLight: "#C7E4FF",
   blueDark: "#587CFF",
+  yellow: "#FFC965",
 };
 export const fonts = {
   medium: "Fredoka-Medium",
@@ -40,6 +41,20 @@ export const stylesConst = StyleSheet.create({
   },
   bg: {
     height: height,
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  fullScreen: {
+    height: "100%",
+    width: "100%",
+  },
+  centralPositioning: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  fullScreenCentralElement: {
+    height: "100%",
     width: "100%",
     alignItems: "center",
     justifyContent: "center",

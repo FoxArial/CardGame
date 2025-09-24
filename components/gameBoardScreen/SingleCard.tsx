@@ -1,4 +1,4 @@
-import { colors, width } from "@/constants/constant";
+import { colors, stylesConst, width } from "@/constants/constant";
 import React, { useEffect, useRef } from "react";
 import { Animated, Image, Pressable, StyleSheet, View } from "react-native";
 import { CardType } from "./cardBoard";
@@ -57,7 +57,7 @@ export default function SingleCard({
         <Pressable onPress={handleClick}>
           <Animated.View
             style={[
-              styles.cardContainer,
+              stylesConst.fullScreen,
               {
                 opacity: opacityAnim,
               },
@@ -116,10 +116,6 @@ const styles = StyleSheet.create({
   cardWrapper: {
     margin: 5,
   },
-  cardContainer: {
-    width: "100%",
-    height: "100%",
-  },
   card: {
     width: "100%",
     height: "100%",
@@ -128,7 +124,6 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: "100%",
-
     borderRadius: 10,
   },
 });

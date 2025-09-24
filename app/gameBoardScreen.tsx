@@ -1,10 +1,10 @@
 import AfterGameElements from "@/components/gameBoardScreen/afterGameElements";
 import CardBoard from "@/components/gameBoardScreen/cardBoard";
+import { stylesConst } from "@/constants/constant";
 import LoadingScreen from "@/constants/loadingScreen";
-import StarSky from "@/constants/StarSky";
 import { useLocalSearchParams } from "expo-router";
 import React, { createContext, useState } from "react";
-import { ImageBackground, StyleSheet, View } from "react-native";
+import { ImageBackground, View } from "react-native";
 export const LevelContext = createContext(0);
 type GameStateContextType = {
   reset: () => void;
@@ -26,13 +26,12 @@ export default function GameBoardScreen() {
     <ImageBackground
       source={require("@/assets/images/cardBoardBg.png")}
       resizeMode="cover"
-      style={[styles.fullScreen, { position: "relative" }]}
+      style={[stylesConst.fullScreen, { position: "relative" }]}
     >
-      <View style={[styles.fullScreen, { position: "absolute", top: 0 }]}>
-        <StarSky />
-      </View>
       <GameStateContext.Provider value={{ reset: resetBoard }}>
-        <View style={[styles.fullScreen, { position: "absolute", top: 0 }]}>
+        <View
+          style={[stylesConst.fullScreen, { position: "absolute", top: 0 }]}
+        >
           {!isLoaded ? (
             <LoadingScreen isLoaded={() => setIsLoaded(true)} />
           ) : (
@@ -49,9 +48,3 @@ export default function GameBoardScreen() {
     </ImageBackground>
   );
 }
-const styles = StyleSheet.create({
-  fullScreen: {
-    height: "100%",
-    width: "100%",
-  },
-});
