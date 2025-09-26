@@ -8,23 +8,23 @@ export default function SolarEffect() {
   return (
     <View style={stylesConst.fullScreenCentralElement}>
       <Image
-        source={require("../../assets/images/mask-group.png")}
+        source={require("../assets/images/mask-group.png")}
         resizeMode="contain"
         style={styles.img}
       />
       <Image
-        source={require("../../assets/images/Ellipse_lightBlue.png")}
+        source={require("../assets/images/Ellipse_lightBlue.png")}
         resizeMode="contain"
         style={styles.img}
       />
       <Image
-        source={require("../../assets/images/Ellipse_white.png")}
+        source={require("../assets/images/Ellipse_white.png")}
         resizeMode="contain"
         style={styles.img}
       />
 
       <Image
-        source={require("../../assets/images/Ellipse_darkBlue.png")}
+        source={require("../assets/images/Ellipse_darkBlue.png")}
         resizeMode="contain"
         style={styles.img}
       />

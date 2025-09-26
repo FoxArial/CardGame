@@ -8,6 +8,7 @@ type SingleCardProps = {
   disabled: boolean;
   flipped: boolean;
   invisibility: boolean;
+  hinted: boolean;
 };
 const cardCover = require("@/assets/images/card-off.png");
 export default function SingleCard({
@@ -16,29 +17,41 @@ export default function SingleCard({
   disabled,
   flipped,
   invisibility,
+  hinted,
 }: SingleCardProps) {
   const size = width * 0.12;
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const opacityAnim = useRef(new Animated.Value(1)).current;
+  const colorChangeAnim = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     if (!invisibility) {
       Animated.spring(rotateAnim, {
         toValue: flipped ? 180 : 0,
-        useNativeDriver: true,
+        useNativeDriver: false,
         friction: 8,
         tension: 10,
       }).start();
     }
   }, [flipped, invisibility]);
+
   useEffect(() => {
     if (invisibility) {
       Animated.timing(opacityAnim, {
         toValue: 0,
-        useNativeDriver: true,
+        useNativeDriver: false,
         duration: 1500,
       }).start();
     }
   }, [invisibility]);
+
+  useEffect(() => {
+    Animated.timing(colorChangeAnim, {
+      toValue: hinted ? 1 : 0,
+      useNativeDriver: false,
+      duration: 750,
+    }).start();
+  }, [hinted]);
+
   const frontInterpolate = rotateAnim.interpolate({
     inputRange: [0, 180],
     outputRange: ["0deg", "180deg"],
@@ -47,6 +60,10 @@ export default function SingleCard({
   const backInterpolate = rotateAnim.interpolate({
     inputRange: [0, 180],
     outputRange: ["180deg", "360deg"],
+  });
+  const colorBorderInterpolate = colorChangeAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [colors.cardBorder, colors.cardBorderHint],
   });
   const handleClick = () => {
     if (!disabled) handleChoice(card);
@@ -69,7 +86,7 @@ export default function SingleCard({
                   styles.card,
                   {
                     transform: [{ rotateY: backInterpolate }],
-                    borderColor: colors.cardBorderSelected,
+                    borderColor: colors.Amethyst,
                   },
                 ]}
               >
@@ -93,7 +110,7 @@ export default function SingleCard({
                   {
                     transform: [{ rotateY: frontInterpolate }],
                     position: "absolute",
-                    borderColor: colors.cardBorder,
+                    borderColor: colorBorderInterpolate,
                     borderWidth: 5,
                     overflow: "hidden",
                     borderRadius: 15,

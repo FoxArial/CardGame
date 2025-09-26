@@ -5,7 +5,7 @@ import {
   stylesConst,
 } from "@/constants/constant";
 import { LinearGradient } from "expo-linear-gradient";
-import React from "react";
+import React, { useState } from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { RFValue } from "react-native-responsive-fontsize";
 import { CardType } from "./cardBoard";
@@ -13,18 +13,40 @@ type HintButtonProps = {
   choiceOne: CardType | null;
   buttonSize: number;
   cardArray: CardType[];
+  setHintedCards: (ids: number[]) => void;
 };
 export default function HintButton({
   choiceOne,
   cardArray,
   buttonSize,
+  setHintedCards,
 }: HintButtonProps) {
+  const [disabled, setDisabled] = useState(false);
   const containerSize = RFValue(buttonSize, base_width) * 1.1;
   const blureSize = containerSize * 2;
   const getHint = () => {
-    if (choiceOne) {
+    if (disabled) return;
+    setDisabled(true);
+    if (!choiceOne || choiceOne === null) {
+      const sortedArr: CardType[] = cardArray.filter((c) => !c.matched);
+      const randomFirst = sortedArr[0];
+
+      const pair = cardArray.find(
+        (card) => card.src === randomFirst.src && card.id !== randomFirst.id
+      );
+      if (pair) {
+        setDisabled(false);
+        setHintedCards([randomFirst.id, pair.id]);
+      }
+    } else {
+      const pairCard = cardArray.find(
+        (card) => card.src === choiceOne.src && card.id !== choiceOne.id
+      );
+      if (pairCard) {
+        setDisabled(false);
+        setHintedCards([choiceOne!.id, pairCard.id]);
+      }
     }
-    console.log("hint");
   };
   return (
     <View

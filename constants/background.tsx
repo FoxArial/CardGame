@@ -1,4 +1,4 @@
-import { colors, height, stylesConst } from "@/constants/constant";
+import { colors, stylesConst, width } from "@/constants/constant";
 import StarSky from "@/constants/StarSky";
 import React, { ReactNode } from "react";
 import { StyleSheet, View } from "react-native";
@@ -10,10 +10,9 @@ export default function Background({ children }: BackgroundProps) {
   return (
     <View
       style={{
-        height: height,
-        width: "100%",
+        height: "100%",
+        width: width,
         backgroundColor: colors.background,
-        position: "relative",
       }}
     >
       <View style={[styles.stars, stylesConst.fullScreen]}>
@@ -27,9 +26,10 @@ export default function Background({ children }: BackgroundProps) {
 const styles = StyleSheet.create({
   stars: {
     position: "absolute",
+    top: 0,
+    left: 0,
   },
   content: {
-    zIndex: 1,
     width: "100%",
   },
 });

@@ -30,7 +30,7 @@ export default function StarSky() {
   });
   return (
     <View>
-      <Svg width="100%" height="100%" fill="none">
+      <Svg width="100%" height="100%" viewBox="0 0 852 393" fill="none">
         <AnimatedG opacity={opacityInvert}>
           <G>
             <Rect

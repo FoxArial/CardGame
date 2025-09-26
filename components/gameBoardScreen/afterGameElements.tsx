@@ -7,7 +7,7 @@ import {
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect } from "react";
 import { Animated, StyleSheet, Text, View } from "react-native";
-import SolarEffect from "../startScreen/solarEffect";
+import SolarEffect from "../../constants/solarEffect";
 import StartAgainButton from "./afterGameButton";
 export default function AfterGameElements() {
   const opacityAnim = new Animated.Value(0);

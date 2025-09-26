@@ -9,7 +9,7 @@ import {
   StyleSheet,
   View,
 } from "react-native";
-import BgWaveSecondType from "./bgWawe";
+import BgWaveSecondType from "../../constants/bgWawe";
 import HintButton from "./hintButton";
 import SingleCard from "./SingleCard";
 
@@ -34,10 +34,12 @@ export default function CardBoard({ isDone }: CardBoardProps) {
   const [choiceOne, setChoiceOne] = useState<CardType | null>(null);
   const [choiceTwo, setChoiceTwo] = useState<CardType | null>(null);
   const [disabled, setDisabled] = useState(false);
+  const [isHintedCards, setIsHintedCards] = useState<number[]>([]);
   const cardNumber = useContext(LevelContext) / 2;
   const [cardsOnBoard, setCardsOnBoard] = useState(cardNumber);
   const changeBoardAnim = new Animated.Value(0);
   const opacityAnim = new Animated.Value(1);
+
   useEffect(() => {
     shuffleCards();
   }, [cardNumber]);
@@ -85,6 +87,17 @@ export default function CardBoard({ isDone }: CardBoardProps) {
       setTimeout(() => resetTurn(), 1000);
     }
   }, [choiceOne, choiceTwo]);
+
+  useEffect(() => {
+    if (isHintedCards.length > 0) {
+      const timer = setTimeout(() => {
+        setIsHintedCards([]);
+      }, 1500);
+      console.log(isHintedCards);
+      return () => clearTimeout(timer);
+    }
+  }, [isHintedCards]);
+
   useEffect(() => {
     if (cardsOnBoard > 0) return;
     Animated.timing(changeBoardAnim, {
@@ -100,12 +113,13 @@ export default function CardBoard({ isDone }: CardBoardProps) {
       duration: 1000,
     }).start();
   }, [cardsOnBoard]);
+
   const animTranslateY = changeBoardAnim.interpolate({
     inputRange: [0, 100],
     outputRange: [0, height],
   });
   return (
-    <>
+    <View style={{ overflow: "hidden" }}>
       <Animated.View
         style={[
           stylesConst.fullScreen,
@@ -123,9 +137,16 @@ export default function CardBoard({ isDone }: CardBoardProps) {
           },
         ]}
       >
-        <View style={styles.hintButtonContainer}>
-          <HintButton choiceOne={choiceOne} cardArray={cards} buttonSize={50} />
-        </View>
+        <Animated.View
+          style={[styles.hintButtonContainer, { opacity: opacityAnim }]}
+        >
+          <HintButton
+            choiceOne={choiceOne}
+            cardArray={cards}
+            buttonSize={50}
+            setHintedCards={setIsHintedCards}
+          />
+        </Animated.View>
         <View style={styles.waveContainer}>
           <BgWaveSecondType />
         </View>
@@ -141,21 +162,22 @@ export default function CardBoard({ isDone }: CardBoardProps) {
                 disabled={disabled}
                 flipped={item === choiceOne || item === choiceTwo}
                 invisibility={item.matched}
+                hinted={isHintedCards.includes(item.id)}
               />
             )}
             style={{ alignContent: "center" }}
           ></FlatList>
         </View>
       </Animated.View>
-    </>
+    </View>
   );
 }
 const styles = StyleSheet.create({
   waveContainer: {
-    height: "80%",
+    height: "100%",
     width: "100%",
     position: "absolute",
-    bottom: 0,
+    bottom: "-20%",
   },
   cardsContainer: {
     alignItems: "center",

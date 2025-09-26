@@ -35,7 +35,11 @@ export default function RootLayout() {
     cacheResourses();
   }, []);
   if (!fontsLoaded || !isLoaded) {
-    return <LoadingScreen />;
+    return (
+      <SafeAreaProvider>
+        <LoadingScreen />
+      </SafeAreaProvider>
+    );
   }
   return (
     <SafeAreaProvider>

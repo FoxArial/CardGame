@@ -10,7 +10,7 @@ import {
 } from "../constants/constant";
 
 import Background from "@/constants/background";
-import SolarEffect from "../components/startScreen/solarEffect";
+import SolarEffect from "../constants/solarEffect";
 
 export default function StartScreen() {
   return (
