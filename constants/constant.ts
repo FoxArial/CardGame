@@ -18,6 +18,7 @@ export const colors = {
   blueLight: "#C7E4FF",
   blueDark: "#587CFF",
   yellow: "#FFC965",
+  SoftRed: "#E96666",
 };
 export const fonts = {
   medium: "Fredoka-Medium",

@@ -1,5 +1,6 @@
 import { LevelContext } from "@/app/gameBoardScreen";
 import { height, stylesConst } from "@/constants/constant";
+import GoBackButton from "@/constants/goBackButton";
 import StarSky from "@/constants/StarSky";
 import React, { useContext, useEffect, useState } from "react";
 import {
@@ -93,7 +94,6 @@ export default function CardBoard({ isDone }: CardBoardProps) {
       const timer = setTimeout(() => {
         setIsHintedCards([]);
       }, 1500);
-      console.log(isHintedCards);
       return () => clearTimeout(timer);
     }
   }, [isHintedCards]);
@@ -137,6 +137,11 @@ export default function CardBoard({ isDone }: CardBoardProps) {
           },
         ]}
       >
+        <Animated.View
+          style={[styles.goBackButtonContainer, { opacity: opacityAnim }]}
+        >
+          <GoBackButton buttonSize={50} isInGame={true} />
+        </Animated.View>
         <Animated.View
           style={[styles.hintButtonContainer, { opacity: opacityAnim }]}
         >
@@ -188,6 +193,11 @@ const styles = StyleSheet.create({
   hintButtonContainer: {
     position: "absolute",
     right: "5%",
+    top: "5%",
+  },
+  goBackButtonContainer: {
+    position: "absolute",
+    left: "5%",
     top: "5%",
   },
 });
