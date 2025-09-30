@@ -20,23 +20,23 @@ export default function GoBackButton({
     return setModalVisible(!modalVisible);
   };
   return (
-    <View>
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={modalVisible}
-        style={stylesConst.fullScreen}
-      >
+    <View style={[stylesConst.fullScreen, {}]}>
+      <Modal animationType="fade" transparent={true} visible={modalVisible}>
         <Pressable
           onPress={closeModal}
           style={[
-            stylesConst.fullScreenCentralElement,
-            { backgroundColor: "rgba(0,0,0,.5)", flex: 1 },
+            StyleSheet.absoluteFillObject,
+            stylesConst.centralPositioning,
+            {
+              position: "absolute",
+              inset: 0,
+              backgroundColor: "rgba(0,0,0,.5)",
+            },
           ]}
         >
           <Pressable
             onPress={(e) => e.stopPropagation()}
-            style={{ height: "45%", width: "30%" }}
+            style={{ height: 250, width: "30%" }}
           >
             <LinearGradient
               colors={["#25165F", "#50197D"]}
@@ -55,16 +55,28 @@ export default function GoBackButton({
                 </Text>
               </View>
               <View
-                style={{ height: "40%", width: "100%", flexDirection: "row" }}
+                style={{
+                  height: "40%",
+                  width: "100%",
+                  flexDirection: "row",
+                }}
               >
                 <Pressable
                   onPress={() => goBack()}
-                  style={styles.buttonOptions}
+                  style={[
+                    styles.buttonOptions,
+                    {
+                      borderRightWidth: 2,
+                    },
+                  ]}
                 >
                   <Text
                     style={[
                       stylesConst.textStyles,
-                      { fontSize: fontsSize.small, color: colors.SoftRed },
+                      {
+                        fontSize: fontsSize.small,
+                        color: colors.SoftRed,
+                      },
                     ]}
                   >
                     Yes
@@ -92,6 +104,9 @@ export default function GoBackButton({
             width: containerSize,
             height: containerSize,
             borderRadius: containerSize / 2,
+            position: "absolute",
+            left: "5%",
+            top: "5%",
           },
         ]}
       >
@@ -129,7 +144,12 @@ const styles = StyleSheet.create({
     borderColor: "#543080",
     borderWidth: 2,
     borderRadius: 38,
-    padding: 25,
+    paddingTop: 25,
   },
-  buttonOptions: { width: "50%", justifyContent: "center" },
+  buttonOptions: {
+    width: "50%",
+    justifyContent: "center",
+    borderColor: "#543080",
+    borderTopWidth: 2,
+  },
 });

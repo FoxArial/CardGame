@@ -138,7 +138,9 @@ export default function CardBoard({ isDone }: CardBoardProps) {
         ]}
       >
         <Animated.View
-          style={[styles.goBackButtonContainer, { opacity: opacityAnim }]}
+          style={{
+            opacity: opacityAnim,
+          }}
         >
           <GoBackButton buttonSize={50} isInGame={true} />
         </Animated.View>
