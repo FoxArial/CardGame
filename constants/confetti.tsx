@@ -1,10 +1,9 @@
 import React from "react";
-import { Text, View } from "react-native";
-
-export default function confetti() {
+import { Image, View } from "react-native";
+export default function Confetti() {
   return (
     <View>
-      <Text>confetti</Text>
+      <Image source={require("../assets/images/confeti.png")} />
     </View>
   );
 }

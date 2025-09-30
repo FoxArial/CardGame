@@ -1,6 +1,8 @@
+import Confetti from "@/constants/confetti";
 import {
   colors,
   fontsSize,
+  height,
   hexToRgba,
   stylesConst,
 } from "@/constants/constant";
@@ -19,13 +21,26 @@ export default function AfterGameElements() {
       duration: 500,
     }).start();
   }, []);
+  const confetti = opacityAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: [-height, -height / 4],
+  });
   return (
     <View
-      style={[stylesConst.fullScreenCentralElement, { position: "relative" }]}
+      style={[
+        stylesConst.fullScreenCentralElement,
+        { position: "relative", overflow: "hidden" },
+      ]}
     >
       <Animated.View
-        style={{ backgroundColor: "red", zIndex: 3, position: "absolute" }}
-      ></Animated.View>
+        style={{
+          position: "absolute",
+          top: 0,
+          transform: [{ translateY: confetti }],
+        }}
+      >
+        <Confetti />
+      </Animated.View>
       <Animated.View
         style={[
           styles.mainElementsContainer,
